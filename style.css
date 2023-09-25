@@ -1,5 +1,5 @@
 #grid {
-    width: 450px;
+    width: 450px; /* =TILES_PER_ROW * TILE_SIZE_PX */
     height: 450px;
     margin: auto;
     border: 1px solid white;
@@ -9,7 +9,7 @@
 }
 
 #grid div {
-    width: 30px;
+    width: 30px; /* =TILE_SIZE_PX */
     height: 30px;
 }
 

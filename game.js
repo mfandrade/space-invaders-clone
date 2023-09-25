@@ -1,12 +1,11 @@
 const grid = document.querySelector('#grid');
 
-const gridWidth = 15;
-const tileSize  = 15;
+const TILES_PER_ROW = 15;
 
-let spaceshipPos = ((gridWidth-1) * gridWidth) - (Math.round(gridWidth/2));
+let spaceshipPos = ((TILES_PER_ROW-1) * TILES_PER_ROW) - (Math.round(TILES_PER_ROW/2));
 
 
-for (let i = 0; i < gridWidth * tileSize; i++) {
+for (let i = 0; i < TILES_PER_ROW ** 2; i++) {
     const square = document.createElement('div');
     grid.appendChild(square);
 }

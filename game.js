@@ -12,9 +12,11 @@ for (let i = 0; i < TILES_PER_ROW ** 2; i++) {
     if (DEBUG_MODE) {
         tile.innerHTML = i;
         tile.style.textAlign = "center";
-        tile.style.fontSize = "8px";
+        tile.style.fontSize = "10px";
         tile.style.fontFamily = "Courier,mono";
         tile.style.color = "gray";
+        tile.style.border = "1px dotted #333";
+        tile.style.boxSizing = "border-box";
     }
     screen.appendChild(tile);
 }
@@ -77,7 +79,6 @@ function moveInvaders() {
             }
             invadersPos[i] += invadersDirection;
         }
-        console.log(firstInvader + ".." + lastInvader);
     }
     drawInvaders();
 }

@@ -6,6 +6,10 @@
     display: flex;
     flex-wrap: wrap;
     background-color: black;
+    background-image: url(earth.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom;
 }
 
 #grid div {

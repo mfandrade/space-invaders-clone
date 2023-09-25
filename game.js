@@ -1,5 +1,6 @@
 const screen = document.querySelector('#grid');
 
+const DEBUG_MODE = true;
 const TILES_PER_ROW = 15;
 
 let shooterPos = ((TILES_PER_ROW-1) * TILES_PER_ROW) - (Math.round(TILES_PER_ROW/2));
@@ -8,6 +9,13 @@ let invadersDirection = 0;
 
 for (let i = 0; i < TILES_PER_ROW ** 2; i++) {
     const tile = document.createElement('div');
+    if (DEBUG_MODE) {
+        tile.innerHTML = i;
+        tile.style.textAlign = "center";
+        tile.style.fontSize = "8px";
+        tile.style.fontFamily = "Courier,mono";
+        tile.style.color = "gray";
+    }
     screen.appendChild(tile);
 }
 

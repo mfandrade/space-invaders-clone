@@ -21,9 +21,10 @@ const alienPos = [
 
 function draw() {
     for (let i = 0; i < alienPos.length; i++) {
-        squares[alienPos[i]].classList.add('alien');
+        squares[alienPos[i]].classList.add('invader');
     }
 }
 draw();
 
-squares[spaceshipPos].classList.add('spaceship');
+squares[spaceshipPos].classList.add('shooter');
+

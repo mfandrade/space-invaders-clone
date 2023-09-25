@@ -13,12 +13,12 @@
     height: 30px;
 }
 
-.alien {
+.invader {
     background-image: url(alien.png);
     background-size: contain;
 }
 
-.spaceship {
+.shooter {
     background-image: url(spaceship.png);
     background-size: contain;
 }

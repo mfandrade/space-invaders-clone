@@ -64,11 +64,20 @@ function moveInvaders() {
     const onRight = (lastInvader % TILES_PER_ROW) === TILES_PER_ROW-1;
 
     removeInvaders();
-    for (let i = 0; i < invadersPos.length; i++) {
-        if (onRight) invadersDirection = -1;
-        if (onLeft)  invadersDirection = +1;
+    {
+        for (let i = 0; i < invadersPos.length; i++) {
+            if (onRight) {
+                invadersPos[i] += TILES_PER_ROW;
+                invadersDirection = -1;
+            }
 
-        invadersPos[i] += invadersDirection;
+            if (onLeft) {
+                invadersPos[i] += TILES_PER_ROW;
+                invadersDirection = +1;
+            }
+            invadersPos[i] += invadersDirection;
+        }
+        console.log(firstInvader + ".." + lastInvader);
     }
     drawInvaders();
 }

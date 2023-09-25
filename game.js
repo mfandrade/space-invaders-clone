@@ -3,6 +3,7 @@ const screen = document.querySelector('#grid');
 const TILES_PER_ROW = 15;
 
 let shooterPos = ((TILES_PER_ROW-1) * TILES_PER_ROW) - (Math.round(TILES_PER_ROW/2));
+let invadersDirection = 0;
 
 
 for (let i = 0; i < TILES_PER_ROW ** 2; i++) {
@@ -18,12 +19,18 @@ const invadersPos = [
     30, 31, 32, 33, 34, 35, 36, 37, 38, 39
 ];
 
-function draw() {
+function drawInvaders() {
     for (let i = 0; i < invadersPos.length; i++) {
         tiles[invadersPos[i]].classList.add('invader');
     }
 }
-draw();
+drawInvaders();
+
+function removeInvaders() {
+    for (let i = 0; i < invadersPos.length; i++) {
+        tiles[invadersPos[i]].classList.remove('invader');
+    }
+}
 
 tiles[shooterPos].classList.add('shooter');
 
@@ -42,3 +49,20 @@ function moveShooter(e) {
 }
 document.addEventListener('keydown', moveShooter);
 
+function moveInvaders() {
+    const firstInvader = invadersPos.at(0);
+    const lastInvader  = invadersPos.at(-1);
+    const onLeft = (firstInvader % TILES_PER_ROW) === 0;
+    const onRight = (lastInvader % TILES_PER_ROW) === TILES_PER_ROW-1;
+
+    removeInvaders();
+    for (let i = 0; i < invadersPos.length; i++) {
+        if (onRight) invadersDirection = -1;
+        if (onLeft)  invadersDirection = +1;
+
+        invadersPos[i] += invadersDirection;
+    }
+    drawInvaders();
+}
+
+setInterval(moveInvaders, 500);

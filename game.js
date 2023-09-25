@@ -1,10 +1,11 @@
 const screen = document.querySelector('#grid');
 
-const DEBUG_MODE = true;
+const DEBUG_MODE = false;
 const TILES_PER_ROW = 15;
 
 let shooterPos = ((TILES_PER_ROW-1) * TILES_PER_ROW) - (Math.round(TILES_PER_ROW/2));
 let invadersDirection = 0;
+let invadersInterval = null;
 
 
 for (let i = 0; i < TILES_PER_ROW ** 2; i++) {
@@ -78,9 +79,16 @@ function moveInvaders() {
                 invadersDirection = +1;
             }
             invadersPos[i] += invadersDirection;
+
         }
     }
     drawInvaders();
+
+    if (tiles[shooterPos].classList.contains('invader')) {
+        console.log('GAME OVER!');
+        clearInterval(invadersInterval);
+        tiles[shooterPos].style.backgroundImage = 'url(explosion.png)';
+    }
 }
 
-setInterval(moveInvaders, 500);
+invadersInterval = setInterval(moveInvaders, 200);

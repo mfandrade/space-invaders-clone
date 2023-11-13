@@ -1,12 +1,9 @@
-const screen = document.querySelector('#grid');
-
-const DEBUG_MODE = false;
+const DEBUG_MODE = true;
 const TILES_PER_ROW = 15;
 
-let shooterPos = ((TILES_PER_ROW-1) * TILES_PER_ROW) - (Math.round(TILES_PER_ROW/2));
+let shooterPos = ((TILES_PER_ROW - 1) * TILES_PER_ROW) - (Math.round(TILES_PER_ROW / 2));
 let invadersDirection = 0;
 let invadersInterval = null;
-
 
 for (let i = 0; i < TILES_PER_ROW ** 2; i++) {
     const tile = document.createElement('div');
@@ -19,7 +16,7 @@ for (let i = 0; i < TILES_PER_ROW ** 2; i++) {
         tile.style.border = "1px dotted #333";
         tile.style.boxSizing = "border-box";
     }
-    screen.appendChild(tile);
+    document.querySelector('#grid').appendChild(tile);
 }
 
 const tiles = Array.from(document.querySelectorAll('#grid div'));
@@ -33,9 +30,9 @@ const invadersPos = [
 function drawInvaders() {
     for (let i = 0; i < invadersPos.length; i++) {
         tiles[invadersPos[i]].classList.add('invader');
+        console.log(`i:${i} invadersPos[i]:${invadersPos[i]}`)
     }
 }
-drawInvaders();
 
 function removeInvaders() {
     for (let i = 0; i < invadersPos.length; i++) {
@@ -43,28 +40,29 @@ function removeInvaders() {
     }
 }
 
-tiles[shooterPos].classList.add('shooter');
+//tiles[shooterPos].classList.add('shooter');
 
 function moveShooter(e) {
     tiles[shooterPos].classList.remove('shooter');
-
-    switch(e.key) {
-        case 'ArrowLeft':
-            if (shooterPos % TILES_PER_ROW > 0) --shooterPos;
-            break;
-        case 'ArrowRight':
-            if (shooterPos % TILES_PER_ROW < TILES_PER_ROW-1) ++shooterPos;
-            break;
+    {
+        switch (e.key) {
+            case 'ArrowLeft':
+                if (shooterPos % TILES_PER_ROW > 0) --shooterPos;
+                break;
+            case 'ArrowRight':
+                if (shooterPos % TILES_PER_ROW < TILES_PER_ROW - 1) ++shooterPos;
+                break;
+        }
     }
     tiles[shooterPos].classList.add('shooter');
 }
-document.addEventListener('keydown', moveShooter);
+//document.addEventListener('keydown', moveShooter);
 
 function moveInvaders() {
     const firstInvader = invadersPos.at(0);
-    const lastInvader  = invadersPos.at(-1);
+    const lastInvader = invadersPos.at(-1);
     const onLeft = (firstInvader % TILES_PER_ROW) === 0;
-    const onRight = (lastInvader % TILES_PER_ROW) === TILES_PER_ROW-1;
+    const onRight = (lastInvader % TILES_PER_ROW) === TILES_PER_ROW - 1;
 
     removeInvaders();
     {
@@ -84,10 +82,19 @@ function moveInvaders() {
     }
     drawInvaders();
 
-    if (tiles[shooterPos].classList.contains('invader')) {
-        console.log('GAME OVER!');
-        clearInterval(invadersInterval);
-        tiles[shooterPos].style.backgroundImage = 'url(explosion.png)';
+
+    // if (tiles[shooterPos].classList.contains('invader', 'shooter')) {
+    //     console.log('GAME OVER!');
+    //     clearInterval(invadersInterval);
+    //     tiles[shooterPos].style.backgroundImage = 'url(explosion.png)';
+    //     document.removeEventListener('keydown', moveShooter);
+    // }
+    
+    for (let i= 0; i < invadersPos.length; i++) {
+        if (invadersPos[i] > (tiles.length)) {
+            console.log('GAME OVER');
+            clearInterval(invadersInterval);
+        }
     }
 }
 
